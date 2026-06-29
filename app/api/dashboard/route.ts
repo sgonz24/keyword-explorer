@@ -2,11 +2,15 @@ import { NextResponse } from "next/server";
 import { fetchPosts } from "@/lib/webflow";
 import { readQueueStats } from "@/lib/sheets";
 import { CLUSTER_MATCHERS, SITE_URL } from "@/lib/config";
+import { DEMO_MODE, demoDashboard } from "@/lib/demo";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 export async function GET() {
+  if (DEMO_MODE) {
+    return NextResponse.json(demoDashboard());
+  }
   try {
     const [posts, queue] = await Promise.all([
       fetchPosts().catch(() => []),

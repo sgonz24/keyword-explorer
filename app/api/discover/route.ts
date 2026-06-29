@@ -7,6 +7,7 @@ import {
 import { scoreKeywords } from "@/lib/scoring";
 import { clusterKeywords, groupByStage } from "@/lib/cluster";
 import { logCost } from "@/lib/sheets";
+import { DEMO_MODE, demoKeywords } from "@/lib/demo";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -17,6 +18,23 @@ export async function POST(req: Request) {
     const mode: string = body?.mode === "domain" ? "domain" : "seed";
     const minVolume = Number(body?.minVolume ?? 50);
     const maxKd = Number(body?.maxKd ?? 65);
+
+    if (DEMO_MODE) {
+      const query: string =
+        mode === "domain"
+          ? (body?.domain ?? "").trim() || "example.com"
+          : (body?.seed ?? "").trim() || "content marketing";
+      const seedForKw =
+        mode === "domain" ? query.replace(/^https?:\/\//, "").split(".")[0] : query;
+      const scored = scoreKeywords(demoKeywords(seedForKw));
+      const clusters = clusterKeywords(scored, mode === "domain" ? "" : query);
+      const stages = groupByStage(clusters);
+      return NextResponse.json(
+        mode === "domain"
+          ? { mode, query, competitors: [], clusters, stages }
+          : { mode, query, clusters, stages }
+      );
+    }
 
     if (mode === "domain") {
       const domain: string = (body?.domain ?? "").trim();

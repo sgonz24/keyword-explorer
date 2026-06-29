@@ -2,20 +2,29 @@
 // brand/site without editing source. Every value falls back to a generic
 // default, so the app boots and the UI renders even with no env set.
 
-/** Brand name shown in the sidebar/header and used in the LLM "voice". */
-export const BRAND_NAME = process.env.BRAND_NAME ?? "Acme";
+/** Brand name shown in the sidebar/header and used in the LLM "voice".
+ * NEXT_PUBLIC_ variant is read first so the client-rendered UI can show it too. */
+export const BRAND_NAME =
+  process.env.NEXT_PUBLIC_BRAND_NAME ?? process.env.BRAND_NAME ?? "Acme";
 
 /**
  * The site this app writes/tracks content for. Used as the default domain for
  * Grow (rank tracking + GSC) and to build absolute post URLs in JSON-LD.
  * No protocol — just the bare host, e.g. "example.com".
  */
-export const SITE_DOMAIN = (process.env.SITE_DOMAIN ?? "example.com")
+export const SITE_DOMAIN = (
+  process.env.NEXT_PUBLIC_SITE_DOMAIN ??
+  process.env.SITE_DOMAIN ??
+  "example.com"
+)
   .replace(/^https?:\/\//, "")
   .replace(/\/$/, "");
 
 /** Canonical https origin (with www) for the site. */
-export const SITE_URL = process.env.SITE_URL ?? `https://www.${SITE_DOMAIN}`;
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.SITE_URL ??
+  `https://www.${SITE_DOMAIN}`;
 
 /** Short label used as the blog/section name in breadcrumbs. */
 export const BLOG_NAME = process.env.BLOG_NAME ?? `${BRAND_NAME} Blog`;

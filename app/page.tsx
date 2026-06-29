@@ -1114,19 +1114,16 @@ export default function Home() {
               </div>
             )}
             <p className="cost-note">
-              vs. Keytail.ai at $99/mo flat. Exact provider balances live on{" "}
-              <a href="https://app.dataforseo.com" target="_blank" rel="noreferrer">
-                DataForSEO
-              </a>{" "}
-              and{" "}
+              Pay only for what you use. Exact provider balances live on your
+              keyword-data and{" "}
               <a
                 href="https://platform.openai.com/usage"
                 target="_blank"
                 rel="noreferrer"
               >
                 OpenAI
-              </a>
-              .
+              </a>{" "}
+              dashboards.
             </p>
           </div>
         )}

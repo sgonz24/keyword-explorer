@@ -443,7 +443,7 @@ export default function Home() {
       setToast(
         live
           ? `Published live → ${data.liveUrl}`
-          : `Saved as draft in Webflow`
+          : `Saved as draft in your CMS`
       );
       setTimeout(() => setToast(null), 5000);
     } catch (e: any) {
@@ -851,8 +851,8 @@ export default function Home() {
                 <div className="queue-empty-title">Nothing queued yet</div>
                 <p className="queue-empty-sub">
                   Pick keywords in Explore and add them to the queue. Each becomes
-                  a drafted article you can review, then it drips out to Webflow on
-                  schedule.
+                  a drafted article you can review, then it drips out to your CMS
+                  on schedule.
                 </p>
                 <button className="btn" onClick={() => go("explore")}>
                   Go to Explore
@@ -907,7 +907,7 @@ export default function Home() {
                         style={{ padding: "6px 14px", fontSize: 13 }}
                         onClick={() => autoPublish(q.keyword, q.cluster)}
                         disabled={autoKw !== null || draftLoadingKw !== null}
-                        title="Generate + image + publish live to Webflow in one click"
+                        title="Generate + image + publish live to your CMS in one click"
                       >
                         {autoKw === q.keyword ? (
                           <span className="spinner" />
@@ -1217,19 +1217,19 @@ export default function Home() {
               <div className="integrations">
                 {[
                   {
-                    name: "Webflow",
-                    desc: "Publish target — drafts push to your CMS collection",
+                    name: "Your CMS",
+                    desc: "Publish target — drafts push to your blog/CMS",
                     status: "Connected",
                     ok: true,
                   },
                   {
-                    name: "Google Search Console",
+                    name: "Search Console",
                     desc: "Index coverage + query data",
                     status: "Connected",
                     ok: true,
                   },
                   {
-                    name: "DataForSEO",
+                    name: "Keyword data",
                     desc: "Keyword discovery, difficulty, and SERP rank data",
                     status: "Connected",
                     ok: true,
@@ -1306,15 +1306,15 @@ export default function Home() {
                 className="btn ghost"
                 disabled={publishing}
                 onClick={() => publishDraft(false)}
-                title="Create as an unpublished draft in Webflow"
+                title="Create as an unpublished draft in your CMS"
               >
-                {publishing ? "Sending…" : "Save draft to Webflow"}
+                {publishing ? "Sending…" : "Save draft"}
               </button>
               <button
                 className="btn"
                 disabled={publishing}
                 onClick={() => publishDraft(true)}
-                title="Create and publish live to Webflow"
+                title="Create and publish live to your CMS"
               >
                 {publishing ? "Publishing…" : "Publish live →"}
               </button>
@@ -1365,7 +1365,7 @@ export default function Home() {
               <div>
                 Paste ChatGPT's full reply back here, then load it as a draft.
                 A featured image is generated automatically (~$0.06) and uploads
-                to Webflow with the post — no manual image step.
+                to your CMS with the post — no manual image step.
               </div>
             </div>
             <textarea
